@@ -9,13 +9,15 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.github.prisonershats.strategies.MeanBasedStrategy;
+
 public class Tester {
 
 	public static void main(String[] args) throws Exception {
 
 		int n = 100;
 		int testsCount = 1000;
-		PrisonersHatsStrategy<Integer> solver = Tester::solve;
+		PrisonersHatsStrategy<Integer> solver = new MeanBasedStrategy();
 
 		double deathCount = 0;
 		int maxDeaths = 0;
@@ -51,46 +53,6 @@ public class Tester {
 		}
 		System.out.println("mean deaths: " + deathCount / testsCount + ", max deaths: " + maxDeaths);
 
-	}
-
-    // Solver pour n = 2 :-)
-//    private static int solve(List<Integer> heardBefore, List<Integer> seenAhead) throws Exception {
-//        if (seenAhead.size() > 1) {
-//            throw new Exception("ne sait pas résoudre pour n > 2");
-//        }
-//        if (seenAhead.size() == 1) {
-//            return seenAhead.get(0);
-//        }
-//        else return heardBefore.get(0);
-//    }
-
-	// Solver de Xavier
-	private static int solve(List<Integer> heardBefore, List<Integer> seenAhead) {
-		double mean = 0;
-		for (Integer element : heardBefore) {
-			mean += element;
-		}
-		for (Integer element : seenAhead) {
-			mean += element;
-		}
-		mean /= heardBefore.size() + seenAhead.size();
-		List<Integer> missings = new ArrayList<>();
-		for (int i = 1; i <= heardBefore.size() + seenAhead.size() + 2; i++) {
-			if (!heardBefore.contains(i) && !seenAhead.contains(i)) {
-				missings.add(i);
-			}
-		}
-		if (Math.abs(mean - missings.get(1)) < Math.abs(mean - missings.get(0))) {
-			return missings.get(1);
-		} else if (Math.abs(mean - missings.get(1)) == Math.abs(mean - missings.get(0))) {
-			if (missings.get(1) < missings.get(0)) {
-				return missings.get(1);
-			} else {
-				return missings.get(0);
-			}
-		} else {
-			return missings.get(0);
-		}
 	}
 
 	private static int howManyDeaths(List<Integer> hats, List<Integer> saidHats) {
