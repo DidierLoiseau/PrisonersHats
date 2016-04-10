@@ -1,11 +1,18 @@
 package com.github.prisonershats;
 
+import static java.util.stream.Collectors.joining;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PrisonersHatsRunner<T> {
+	private static final Logger LOG = LoggerFactory.getLogger(PrisonersHatsRunner.class);
+	
 	private final HatsGenerator<T> generator;
 	private final PrisonersHatsStrategy<T> solver;
 	private final HatsChecker<T> checker;
@@ -23,13 +30,13 @@ public class PrisonersHatsRunner<T> {
 		double deathCount = 0;
 		int maxDeaths = 0;
 		for (int test = 0; test < testsCount; test++) {
-			if (test % 100 == 0) {
-				System.out.println("Iteration " + test);
+			if (!LOG.isDebugEnabled() && test % 100 == 0) {
+				LOG.info("Iteration {}", test);
 			}
+			LOG.debug("--- Iteration {}", test);
 			// initialise hats randomly
 			List<T> hats = generator.generate(numberOfPrisoners);
-			System.out.print("real hats: ");
-			printList(hats);
+			LOG.debug("real hats: {}", toString(hats));
 
 			// ask hat number of each prisoner
 			List<T> saidHats = new ArrayList<>();
@@ -38,23 +45,21 @@ public class PrisonersHatsRunner<T> {
 				T hatValueAnounced = solver.guessHat(saidHats, visibleHats);
 				saidHats.add(hatValueAnounced);
 			}
-			System.out.print("said hats: ");
-			printList(saidHats);
+			LOG.debug("said hats: {}", toString(hats));
 
 			// check hats == heardBefore
 			int deaths = checker.deathCount(hats, saidHats);
-			System.out.println("deaths: " + deaths);
+			LOG.debug("deaths: {}", deaths);
 			deathCount += deaths;
-			System.out.println("----");
 			maxDeaths = Math.max(maxDeaths, deaths);
 		}
-		System.out.println("mean deaths: " + deathCount / testsCount + ", max deaths: " + maxDeaths);
+		LOG.info("mean deaths: {}, max deaths: {}", deathCount / testsCount, maxDeaths);
 	}
 
-	private void printList(List<T> list) {
-		System.out.println(list.stream()
+	private String toString(List<T> list) {
+		return list.stream()
 				.map(toStringFn)
-				.collect(Collectors.joining(",")));
+				.collect(joining(","));
 	}
 
 }
