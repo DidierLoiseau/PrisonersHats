@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import com.github.prisonershats.checkers.SimpleHatsChecker;
 import com.github.prisonershats.generators.IntegerHatsGenerator;
 import com.github.prisonershats.strategies.MeanBasedStrategy;
 
@@ -17,6 +18,7 @@ public class Tester {
 		PrisonersHatsStrategy<Integer> solver = new MeanBasedStrategy();
 		Random random = new Random(/* 42 */);
 		HatsGenerator<Integer> generator = new IntegerHatsGenerator(random);
+		HatsChecker<Integer> checker = new SimpleHatsChecker<>();
 
 		double deathCount = 0;
 		int maxDeaths = 0;
@@ -40,7 +42,7 @@ public class Tester {
 			printList(saidHats);
 
 			// check hats == heardBefore
-			int deaths = howManyDeaths(hats, saidHats);
+			int deaths = checker.deathCount(hats, saidHats);
 			System.out.println("deaths: " + deaths);
 			deathCount += deaths;
 			System.out.println("----");
@@ -48,16 +50,6 @@ public class Tester {
 		}
 		System.out.println("mean deaths: " + deathCount / testsCount + ", max deaths: " + maxDeaths);
 
-	}
-
-	private static int howManyDeaths(List<Integer> hats, List<Integer> saidHats) {
-		int deaths = 0;
-		for (int i = 0; i < hats.size(); i++) {
-			if (!hats.get(i).equals(saidHats.get(i))) {
-				deaths++;
-			}
-		}
-		return deaths;
 	}
 
 	private static void printList(List<Integer> list) {
