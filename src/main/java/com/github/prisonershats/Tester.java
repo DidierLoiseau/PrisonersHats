@@ -1,14 +1,11 @@
 package com.github.prisonershats;
 
-import static java.util.stream.Collectors.toList;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
+import com.github.prisonershats.generators.IntegerHatsGenerator;
 import com.github.prisonershats.strategies.MeanBasedStrategy;
 
 public class Tester {
@@ -18,19 +15,17 @@ public class Tester {
 		int n = 100;
 		int testsCount = 1000;
 		PrisonersHatsStrategy<Integer> solver = new MeanBasedStrategy();
+		Random random = new Random(/* 42 */);
+		HatsGenerator<Integer> generator = new IntegerHatsGenerator(random);
 
 		double deathCount = 0;
 		int maxDeaths = 0;
-		Random random = new Random(/* 42 */);
 		for (int test = 0; test < testsCount; test++) {
 			if (test % 100 == 0) {
 				System.out.println("Iteration " + test);
 			}
 			// initialise hats randomly
-			List<Integer> hats = IntStream.range(0, n + 1).boxed().collect(toList());
-			Collections.shuffle(hats, random);
-			System.out.println("removed hat: " + hats.get(n));
-			hats.remove(n);
+			List<Integer> hats = generator.generate(n);
 			System.out.print("real hats: ");
 			printList(hats);
 
