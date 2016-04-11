@@ -1,20 +1,20 @@
 package com.github.prisonershats.generators;
 
-import com.github.prisonershats.GenericHatsGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.github.prisonershats.SetGenerator;
 
 import java.util.*;
 
-public class StringGenericHatsGenerator extends BaseGenericHatsGenerator<String> {
+public class StringSetGenerator implements SetGenerator<String> {
 
-	public StringGenericHatsGenerator(Random random) {
-		super(random);
+	private final Random random;
+
+	public StringSetGenerator(Random random) {
+		this.random = random;
 	}
 
-	protected Set<String> generateAllHats(int prisonersNumber) {
+	public Set<String> generate(int size) {
 		Set<String> hats = new HashSet<>();
-		while (hats.size() < prisonersNumber + 1) {
+		while (hats.size() < size) {
 			String generatedString = generateRandomString();
 			if (!hats.contains(generatedString)) {
 				hats.add(generatedString);

@@ -3,9 +3,7 @@ package com.github.prisonershats;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 import static java.util.stream.Collectors.joining;
@@ -13,12 +11,12 @@ import static java.util.stream.Collectors.joining;
 public class GenericPrisonersHatsRunner<T extends Comparable<T>> {
 	private static final Logger LOG = LoggerFactory.getLogger(GenericPrisonersHatsRunner.class);
 
-	private final GenericHatsGenerator<T> generator;
+	private final SetGenerator<T> generator;
 	private final GenericPrisonersHatsStrategy<T> solver;
 	private final HatsChecker<T> checker;
 	private Function<T, String> toStringFn;
 
-	public GenericPrisonersHatsRunner(GenericHatsGenerator<T> generator, GenericPrisonersHatsStrategy<T> solver,
+	public GenericPrisonersHatsRunner(SetGenerator<T> generator, GenericPrisonersHatsStrategy<T> solver,
 									  HatsChecker<T> checker, Function<T, String> toStringFn) {
 		this.generator = generator;
 		this.solver = solver;
@@ -34,11 +32,14 @@ public class GenericPrisonersHatsRunner<T extends Comparable<T>> {
 				LOG.info("Iteration {}", test);
 			}
 			LOG.debug("--- Iteration {}", test);
+
 			// initialise hats randomly
-			generator.generate(numberOfPrisoners);
-			List<T> hats = generator.getHats();
+			Set<T> allHats = generator.generate(numberOfPrisoners + 1);
+			List<T> hats = new ArrayList<>(allHats);
+			Collections.shuffle(hats, new Random(/* 42 */)); // TODO: random...
+			T removedHat = hats.remove(numberOfPrisoners);
+			LOG.debug("removed hat: " + removedHat);
 			LOG.debug("real hats: {}", toString(hats));
-			Set<T> allHats = generator.getAllHats();
 
 			// ask hat number of each prisoner
 			List<T> saidHats = new ArrayList<>();

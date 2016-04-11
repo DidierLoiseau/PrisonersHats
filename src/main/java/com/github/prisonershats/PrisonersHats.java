@@ -3,8 +3,8 @@ package com.github.prisonershats;
 import java.util.Random;
 
 import com.github.prisonershats.checkers.SimpleHatsChecker;
-import com.github.prisonershats.generators.IntegerGenericHatsGenerator;
-import com.github.prisonershats.generators.StringGenericHatsGenerator;
+import com.github.prisonershats.generators.IntegerSetGenerator;
+import com.github.prisonershats.generators.StringSetGenerator;
 import com.github.prisonershats.strategies.PermutationsStrategy;
 
 public class PrisonersHats {
@@ -33,7 +33,7 @@ public class PrisonersHats {
 		int testsCount = 1000;
 
 		GenericPrisonersHatsStrategy<String> solver = new PermutationsStrategy<>();
-		GenericHatsGenerator<String> generator = new StringGenericHatsGenerator(new Random(/* 42 */));
+		SetGenerator<String> generator = new StringSetGenerator(new Random(/* 42 */));
 		HatsChecker<String> checker = new SimpleHatsChecker<>();
 
 		GenericPrisonersHatsRunner<String> prisonersHatsRunner
@@ -48,7 +48,7 @@ public class PrisonersHats {
 //		int testsCount = 1000;
 //
 //		GenericPrisonersHatsStrategy<Integer> solver = new PermutationsStrategy<>();
-//		GenericHatsGenerator<Integer> generator = new IntegerGenericHatsGenerator(new Random(/* 42 */));
+//		SetGenerator<Integer> generator = new IntegerSetGenerator();
 //		HatsChecker<Integer> checker = new SimpleHatsChecker<>();
 //
 //		GenericPrisonersHatsRunner<Integer> prisonersHatsRunner
