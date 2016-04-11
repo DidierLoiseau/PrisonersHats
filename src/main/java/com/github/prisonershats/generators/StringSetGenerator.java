@@ -24,7 +24,7 @@ public class StringSetGenerator implements SetGenerator<String> {
 	}
 
 	private String generateRandomString() {
-		return randomString(random.nextInt(10));
+		return randomString(random.nextInt(10) + 1);
 	}
 
 	// adapted from http://stackoverflow.com/a/157202
