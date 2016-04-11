@@ -25,6 +25,7 @@ public class GenericPrisonersHatsRunner<T extends Comparable<T>> {
 	}
 
 	public void runWith(int numberOfPrisoners, int testsCount) {
+		Set<T> allHats = generator.generate(numberOfPrisoners + 1);
 		double deathCount = 0;
 		int maxDeaths = 0;
 		for (int test = 0; test < testsCount; test++) {
@@ -34,7 +35,6 @@ public class GenericPrisonersHatsRunner<T extends Comparable<T>> {
 			LOG.debug("--- Iteration {}", test);
 
 			// initialise hats randomly
-			Set<T> allHats = generator.generate(numberOfPrisoners + 1);
 			List<T> hats = new ArrayList<>(allHats);
 			Collections.shuffle(hats, new Random(/* 42 */)); // TODO: random...
 			T removedHat = hats.remove(numberOfPrisoners);
