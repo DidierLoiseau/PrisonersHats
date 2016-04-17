@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.IntStream;
 
-import com.github.prisonershats.PrisonersHatsStrategy;
+import com.github.prisonershats.Strategy;
 
 /**
  * Solves the Prisoners' Hats problem by looking at the chain of prisoners, taking hat numbers as prisoners positions.
@@ -17,7 +17,7 @@ import com.github.prisonershats.PrisonersHatsStrategy;
  * @author didier
  *
  */
-public class PrisonersChainStrategy implements PrisonersHatsStrategy<Integer> {
+public class PrisonersChainStrategy implements Strategy<Integer> {
 
 	@Override
 	public Integer guessHat(List<Integer> heardHats, List<Integer> visibleHats) {

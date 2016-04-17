@@ -1,10 +1,10 @@
 package com.github.prisonershats.strategies;
 
-import com.github.prisonershats.GenericPrisonersHatsStrategy;
+import com.github.prisonershats.GenericStrategy;
 
 import java.util.*;
 
-public class PermutationsStrategy<T extends Comparable<T>> implements GenericPrisonersHatsStrategy<T> {
+public class PermutationsStrategy<T extends Comparable<T>> implements GenericStrategy<T> {
 
     public T guessHat(List<T> heardHats, List<T> visibleHats, Set<T> allHats) {
 

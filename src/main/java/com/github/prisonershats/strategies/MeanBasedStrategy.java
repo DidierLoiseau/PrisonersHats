@@ -3,14 +3,14 @@ package com.github.prisonershats.strategies;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.prisonershats.PrisonersHatsStrategy;
+import com.github.prisonershats.Strategy;
 
 /**
  * A simple but efficient strategy based on the mean of the known hats.
  * 
  * @author Xavier
  */
-public class MeanBasedStrategy implements PrisonersHatsStrategy<Integer> {
+public class MeanBasedStrategy implements Strategy<Integer> {
 
 	@Override
 	public Integer guessHat(List<Integer> heardBefore, List<Integer> seenAhead) {

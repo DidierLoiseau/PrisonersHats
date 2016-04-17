@@ -1,18 +1,18 @@
 package com.github.prisonershats.strategies;
 
-import com.github.prisonershats.GenericPrisonersHatsStrategy;
-import com.github.prisonershats.PrisonersHatsStrategy;
+import com.github.prisonershats.GenericStrategy;
+import com.github.prisonershats.Strategy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class IntegerPrisonersHatsStrategyWrapper<T extends Comparable<T>> implements GenericPrisonersHatsStrategy<T> {
+public class IntegerStrategyWrapper<T extends Comparable<T>> implements GenericStrategy<T> {
 
-    private PrisonersHatsStrategy<Integer> integerPrisonersHatsStrategy;
+    private Strategy<Integer> integerStrategy;
 
-    public IntegerPrisonersHatsStrategyWrapper(PrisonersHatsStrategy<Integer> integerPrisonersHatsStrategy) {
-        this.integerPrisonersHatsStrategy = integerPrisonersHatsStrategy;
+    public IntegerStrategyWrapper(Strategy<Integer> integerStrategy) {
+        this.integerStrategy = integerStrategy;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class IntegerPrisonersHatsStrategyWrapper<T extends Comparable<T>> implem
             visibleHatsIntegers.add(allHatsSorted.indexOf(hat));
         }
 
-        int guessHatInteger = integerPrisonersHatsStrategy.guessHat(heardHatsIntegers, visibleHatsIntegers);
+        int guessHatInteger = integerStrategy.guessHat(heardHatsIntegers, visibleHatsIntegers);
 
         return allHatsSorted.get(guessHatInteger);
     }

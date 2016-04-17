@@ -1,10 +1,10 @@
 package com.github.prisonershats.strategies;
 
-import com.github.prisonershats.PrisonersHatsStrategy;
+import com.github.prisonershats.Strategy;
 
 import java.util.*;
 
-public class PolylinesStrategy implements PrisonersHatsStrategy<Integer> {
+public class PolylinesStrategy implements Strategy<Integer> {
 
     private List<List<Integer>> orthogonalPolylines;
 
