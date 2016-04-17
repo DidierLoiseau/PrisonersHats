@@ -45,7 +45,7 @@ public class PrisonersHatsRunner<T> {
 				T hatValueAnounced = solver.guessHat(saidHats, visibleHats);
 				saidHats.add(hatValueAnounced);
 			}
-			LOG.debug("said hats: {}", toString(hats));
+			LOG.debug("said hats: {}", toString(saidHats));
 
 			// check hats == heardBefore
 			int deaths = checker.deathCount(hats, saidHats);
