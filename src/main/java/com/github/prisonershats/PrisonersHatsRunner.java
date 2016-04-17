@@ -2,6 +2,7 @@ package com.github.prisonershats;
 
 import static java.util.stream.Collectors.joining;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -26,7 +27,7 @@ public class PrisonersHatsRunner<T> {
 		this.toStringFn = toStringFn;
 	}
 
-	public void runWith(int numberOfPrisoners, int testsCount) {
+	public void runWith(int numberOfPrisoners, int testsCount) throws IOException {
 		double deathCount = 0;
 		int maxDeaths = 0;
 		for (int test = 0; test < testsCount; test++) {

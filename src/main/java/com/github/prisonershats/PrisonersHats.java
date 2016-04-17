@@ -30,6 +30,9 @@ public class PrisonersHats {
 	private static final OptionSpec<String> STRATEGY = PARSER
 			.acceptsAll(asList("s", "strategy"), "the strategy to use")
 			.withRequiredArg();
+	private static final OptionSpec<String> STRATEGY_PARAMETER = PARSER
+			.acceptsAll(asList("sp", "strategyparameter"), "the parameter for the strategy to use")
+			.withRequiredArg();
 	private static final OptionSpec<Long> SEED = PARSER
 			.acceptsAll(asList("r", "seed"), "random seed")
 			.withRequiredArg().ofType(Long.class);
@@ -51,7 +54,13 @@ public class PrisonersHats {
 		if (options.has(STRATEGY)) {
 			Class<?> strategyClass = Class
 					.forName(MeanBasedStrategy.class.getPackage().getName() + "." + options.valueOf(STRATEGY));
-			solver = strategyClass.asSubclass(PrisonersHatsStrategy.class).newInstance();
+			if (options.has(STRATEGY_PARAMETER)) {
+				Class[] constructorArgs = {String.class};
+				solver = (PrisonersHatsStrategy<Integer>) strategyClass.getDeclaredConstructor(constructorArgs).newInstance(options.valueOf(STRATEGY_PARAMETER));
+			}
+			else {
+				solver = strategyClass.asSubclass(PrisonersHatsStrategy.class).newInstance();
+			}
 		} else {
 			solver = new MeanBasedStrategy();
 		}
