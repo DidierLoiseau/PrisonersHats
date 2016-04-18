@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.joining;
 
-public class GenericRunner<T extends Comparable<T>> {
+public class GenericRunner<T> {
 	private static final Logger LOG = LoggerFactory.getLogger(GenericRunner.class);
 
 	private final SetGenerator<T> generator;
@@ -48,7 +48,7 @@ public class GenericRunner<T extends Comparable<T>> {
 				T hatValueAnounced = solver.guessHat(saidHats, visibleHats, allHats);
 				saidHats.add(hatValueAnounced);
 			}
-			LOG.debug("said hats: {}", toString(hats));
+			LOG.debug("said hats: {}", toString(saidHats));
 
 			// check hats == heardBefore
 			int deaths = checker.deathCount(hats, saidHats);

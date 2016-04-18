@@ -5,6 +5,7 @@ import java.util.Random;
 import com.github.prisonershats.checkers.SimpleHatsChecker;
 import com.github.prisonershats.generators.StringSetGenerator;
 import com.github.prisonershats.strategies.IntegerStrategyWrapper;
+import com.github.prisonershats.strategies.PermutationsStrategy;
 import com.github.prisonershats.strategies.PrisonersChainStrategy;
 
 public class Main {

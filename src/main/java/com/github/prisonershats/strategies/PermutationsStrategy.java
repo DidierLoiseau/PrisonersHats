@@ -4,12 +4,12 @@ import com.github.prisonershats.GenericStrategy;
 
 import java.util.*;
 
-public class PermutationsStrategy<T extends Comparable<T>> implements GenericStrategy<T> {
+public class PermutationsStrategy<T> implements GenericStrategy<T> {
 
     public T guessHat(List<T> heardHats, List<T> visibleHats, Set<T> allHats) {
 
         List<T> allHatsSorted = new ArrayList<>(allHats);
-        allHatsSorted.sort(null); // 'null' to sort using Comparable interface of hats
+        Collections.sort(allHatsSorted, new IdentityHashCodeComparator());
 
         List<T> missingHats = new ArrayList<>(allHats);
         missingHats.removeAll(heardHats);
