@@ -7,7 +7,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.prisonershats.checkers.SimpleHatsChecker;
+import com.github.prisonershats.checkers.NonRepeatingHatsChecker;
 import com.github.prisonershats.generators.IntegerHatsGenerator;
 import com.github.prisonershats.strategies.MeanBasedStrategy;
 
@@ -64,7 +64,7 @@ public class PrisonersHats {
 		}
 
 		HatsGenerator<Integer> generator = new IntegerHatsGenerator(random);
-		HatsChecker<Integer> checker = new SimpleHatsChecker<>();
+		HatsChecker<Integer> checker = new NonRepeatingHatsChecker<>();
 
 		PrisonersHatsRunner<Integer> prisonersHatsRunner
 			= new PrisonersHatsRunner<>(generator, solver, checker, i -> String.format("%3d", i));
